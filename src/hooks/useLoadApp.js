@@ -10,30 +10,34 @@ import { useEffect } from "react";
 */
 const useLoadApp = ({ finnieInjected, setAccounts, setChainId, setNetworkId, setAllowEIP1559, setIsLoading }) => {
   useEffect(() => {
-
     const initialize = async () => {
-      setIsLoading(true)
-      const accounts = await window.ethereum.request({
-        method: 'eth_accounts'
-      })
-      setAccounts(accounts)
-
-      const chainId = await window.ethereum.request({
-        method: 'eth_chainId'
-      })
-      setChainId(chainId)
-
-      const networkId = await window.ethereum.request({
-        method: 'net_version'
-      })
-      setNetworkId(networkId)
-
-      const block = await window.ethereum.request({
-        method: 'eth_getBlockByNumber',
-        params: ['latest']
-      })
-      setAllowEIP1559(block?.baseFeePerGas !== undefined)
-      setIsLoading(false)
+      try {
+        setIsLoading(true)
+        const accounts = await window.ethereum.request({
+          method: 'eth_accounts'
+        })
+        setAccounts(accounts)
+  
+        const chainId = await window.ethereum.request({
+          method: 'eth_chainId'
+        })
+        setChainId(chainId)
+  
+        const networkId = await window.ethereum.request({
+          method: 'net_version'
+        })
+        setNetworkId(networkId)
+  
+        const block = await window.ethereum.request({
+          method: 'eth_getBlockByNumber',
+          params: ['latest']
+        })
+        setAllowEIP1559(block?.baseFeePerGas !== undefined)
+        setIsLoading(false)
+      } catch (err) {
+        alert(err)
+        setIsLoading(false)
+      }
     }
 
     if (finnieInjected) initialize()

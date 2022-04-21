@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 */
 const useFinnieInjected = () => {
   const [finnieInjected, setFinnieInjected] = useState(false)
-  
+
   useEffect(() => {
     window.addEventListener('DOMContentLoaded', () => {
       setFinnieInjected(true)
