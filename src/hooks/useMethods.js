@@ -85,7 +85,7 @@ const useMethods = ({ accounts, setAccounts, setIsLoading, collectiblesFactory }
     try {
       let result = await collectiblesContract.mintCollectibles(1, {from: accounts[0]})
       result = await result.wait()
-      alert('Transaction hash: ', result.transactionHash)
+      alert('Transaction hash: ' + result.transactionHash)
     } catch (err) {
       alert(err.data)
       setIsLoading(false)
